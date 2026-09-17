@@ -25,12 +25,27 @@ const schema = {
 };
 
 function fallback(originalText: string, transcript: string, reason?: string) {
-  const original = originalText.toLowerCase().match(/[a-z']+/g) ?? [];
-  const heard = transcript.toLowerCase().match(/[a-z']+/g) ?? [];
-  const heardSet = new Set(heard);
-  const missed = Array.from(new Set(original.filter((word) => !heardSet.has(word)))).slice(0, 6);
-  const accuracy = original.length
-    ? Math.round((heard.filter((word) => original.includes(word)).length / original.length) * 100)
+  const original: string[] =
+  originalText.toLowerCase().match(/[a-z']+/g) ?? [];
+
+const heard: string[] =
+  transcript.toLowerCase().match(/[a-z']+/g) ?? [];
+
+const heardSet = new Set<string>(heard);
+
+const missed: string[] = Array.from(
+  new Set<string>(
+    original.filter((word: string) => !heardSet.has(word))
+  )
+).slice(0, 6);
+
+const matchedCount = heard.filter(
+  (word: string) => original.includes(word)
+).length;
+
+const accuracy =
+  original.length > 0
+    ? Math.round((matchedCount / original.length) * 100)
     : 0;
 
   return {
