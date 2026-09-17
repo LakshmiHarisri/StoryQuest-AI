@@ -1,46 +1,158 @@
-# StoryQuest AI — Fun Adaptive Reading Adventure v8
+# StoryQuest AI
 
-StoryQuest is a mobile-first literacy game where children read an interactive story aloud, solve story clues, make decisions that change the next scene, and collect rewards.
+StoryQuest AI is an adaptive reading adventure for young learners.
 
-## What's new in v8
-- **Branch-specific Chapter 2 content:** each Chapter 1 choice now selects a different Chapter 2 scene, comprehension question, vocabulary word, second decision, and ending.
-- **Branch-specific story worlds:** the animated scene changes in Chapter 2 based on the child's selected path (for example, moonlit staircase vs. secret map; map route vs. compass trail).
-- **Chapter-aware Story Detective challenges:** the comprehension prompt and answer options change with the current chapter and chosen branch.
-- **Chapter-aware Adventure Choices:** the second decision is different from the opening decision and is based on the current branch.
-- **Branch state persists:** the selected Chapter 1 choice and current chapter are saved, so returning to an in-progress story restores the correct storyline.
-- **Reading analysis uses the active chapter text:** coverage/progress and Gemini evaluation now compare the learner's reading to the actual branch-specific scene.
-- Existing Gemini reading analysis, word power-ups, streak, XP, stars, badges, progress dashboard, and mobile-first UI remain.
+Instead of treating reading practice as a worksheet, StoryQuest turns it into a branching story experience where the learner reads aloud, solves comprehension challenges, makes story decisions, and receives personalized practice based on how they read.
 
-## Run
+## Live Demo
 
-Create `.env.local`:
+https://story-quest-ai.vercel.app
+
+## What it does
+
+- **Read Aloud** — the learner reads the story passage aloud using the browser microphone.
+- **AI Reading Analysis** — Gemini analyzes the transcript against the target passage and identifies reading strengths, missed words, and useful next practice.
+- **Interactive Story World** — the visual scene responds to reading progress and the current story context.
+- **Story Detective** — comprehension is integrated into the adventure instead of appearing as a separate worksheet.
+- **Branching Choices** — the learner's decisions affect what happens next.
+- **Dynamic Chapters** — the next chapter is generated from the story history, prior choices, learning needs, and vocabulary focus rather than following a fixed chapter tree.
+- **Vocabulary Practice** — difficult or unfamiliar words can reappear as focused practice and word power-ups.
+- **Listen / Stop** — learners can listen to a passage when they need support and stop narration without leaving the reading flow.
+- **Progress and Rewards** — XP, stars, streaks, badges, quest progress, and learner history encourage continued practice.
+- **Resume Anywhere** — each adventure saves its chapter, branch, and learning state so the learner can return later.
+- **Responsive Experience** — designed for desktop and mobile browsers.
+
+## The learning loop
+
+```text
+Read aloud
+   ↓
+AI reading analysis
+   ↓
+Comprehension challenge
+   ↓
+Story decision
+   ↓
+Adaptive next chapter
+   ↓
+Vocabulary reinforcement
+   ↓
+XP / stars / badges
+   ↓
+Saved progress
+```
+
+## Why the experience is adaptive
+
+StoryQuest combines the story state and learning state.
+
+The next chapter can take into account:
+
+- previous story events
+- choices the learner has made
+- words that need practice
+- reading accuracy signals
+- current learning focus
+
+This means the learner is not simply moving through a fixed sequence of pages. The adventure can continue naturally while the reading practice remains targeted.
+
+## Starter story worlds
+
+The demo includes three curated worlds:
+
+- 🚀 **The Lost Starship**
+- 🌲 **The Hidden Forest**
+- 🏰 **The Midnight Castle**
+
+These worlds demonstrate the reusable adaptive story engine. The underlying engine is designed to support additional worlds and generated adventures.
+
+## Tech Stack
+
+- Next.js
+- React
+- TypeScript
+- Gemini API
+- Browser Speech APIs
+- CSS / responsive UI
+- Browser-based persistence for learner progress
+
+## Local setup
+
+### 1. Install dependencies
+
+```bash
+npm install
+```
+
+### 2. Configure environment variables
+
+Create a local `.env.local` file:
 
 ```env
-GEMINI_API_KEY=your_existing_key
+GEMINI_API_KEY=your_gemini_api_key
 GEMINI_MODEL=your_working_gemini_model
 ```
 
-Install and run:
+Keep `.env.local` private. Do not commit it to GitHub.
+
+### 3. Start the app
 
 ```bash
-npm.cmd install --no-audit --no-fund
-npm.cmd run dev
+npm run dev
 ```
 
-Open http://localhost:3000
+Open:
 
-## MVP story scope
-StoryQuest currently ships with three curated starter worlds: The Lost Starship, The Hidden Forest, and The Midnight Castle. This is intentional for the hackathon MVP: each world demonstrates the same reusable adaptive reading engine, branch persistence, adaptive challenges, vocabulary reinforcement, and persistent progress. The architecture is designed to add more worlds and AI-generated adventures without changing the core learning loop.
+```text
+http://localhost:3000
+```
 
-## Dynamic story engine
-After the learner makes a story choice, StoryQuest can generate the next chapter dynamically with Gemini. Chapters are stored in the learner's saved story state, so there is no hard-coded three-chapter limit. Each generated chapter receives the prior chapter, choice history, current branch consequence, and learner reading focus to keep the adventure continuous and adaptive.
+### 4. Production build
 
-## Dynamic visual story worlds
-Generated chapters now include a `visualScene` object. StoryQuest maps that AI-selected scene into reusable animated visual treatments (portal, bridge, cave, water, night, space, forest, castle) so each chapter can have a different visual moment without hardcoding Chapter 2/3/4.
+```bash
+npm run build
+```
 
-## v11 resume fix
-When a learner completes a chapter and leaves before pressing Continue, the app now saves a pending resume point. Returning to a story generates/restores the next chapter from the exact saved choice instead of replaying Chapter 1. Older saved progress from previous versions is migrated automatically when a chapter-one choice has already been recorded.
+## Deployment
 
+The live demo is deployed on Vercel.
 
-## v15 visual polish
-Stronger adventure-themed backdrop, ambient map/star details, and glassy layered surfaces for desktop and mobile.
+For a deployment, configure:
+
+```text
+GEMINI_API_KEY
+GEMINI_MODEL
+```
+
+as server-side environment variables in the hosting platform.
+
+## Security note
+
+The Gemini API key must remain server-side. Do not expose it through a `NEXT_PUBLIC_` environment variable and do not commit `.env.local`.
+
+## Project structure
+
+```text
+app/
+  api/
+    analyze-reading/
+    generate-chapter/
+  globals.css
+  layout.tsx
+  page.tsx
+
+components/
+  StoryQuest.tsx
+
+lib/
+  ...
+
+public/
+  cards/
+  storyquest-adventure-bg.png
+  ...
+```
+
+## Hackathon focus
+
+StoryQuest is built around the English reading/literacy game challenge: making reading practice more engaging through interactive storytelling, comprehension, adaptive feedback, and game-like progression.

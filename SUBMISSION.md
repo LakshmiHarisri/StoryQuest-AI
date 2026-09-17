@@ -1,26 +1,58 @@
-# Nerdy AI Hackathon — Submission Copy
+# StoryQuest AI — Submission Notes
 
 ## What did you build?
 
-**StoryQuest AI** is a mobile-first English literacy adventure for young learners. Children read an interactive story aloud, and AI analyzes the reading to provide age-appropriate feedback and identify vocabulary/skill areas to practice. The experience turns reading into an adventure: reading powers the story world, comprehension becomes a detective challenge, vocabulary becomes a word-power quest, and the learner makes story decisions that affect the next scene.
+StoryQuest AI is an adaptive reading adventure for young learners.
 
-### What makes it AI-powered?
-- Gemini analyzes the learner transcript against the target passage and returns structured reading insights.
-- AI identifies words/skills to revisit and feeds those into the learner's next practice focus.
-- The app separates reading progress/coverage from AI-estimated reading accuracy.
-- The story experience is designed so learning signals can drive future content and challenges.
+The learner chooses a story world, reads the story aloud, receives AI-powered reading feedback, solves a comprehension challenge, and makes decisions that shape the next part of the adventure.
 
-### Learning design
+The key idea is that the story and the learning experience evolve together.
+
+## What makes it different?
+
 StoryQuest combines:
-- reading-aloud practice
-- comprehension checks
-- vocabulary reinforcement
-- interactive story choices
-- short, rewarding quest loops
-- persistent progress, XP, stars, streaks and badges
 
-### What we'd build next
-- a richer persistent learner profile with longitudinal skill mastery
-- additional story worlds and adaptive story generation
-- stronger pronunciation/fluency measurement using dedicated speech models
-- parent/teacher progress views and safer child-account controls
+- reading aloud
+- AI reading analysis
+- interactive storytelling
+- comprehension
+- vocabulary reinforcement
+- branching decisions
+- dynamic chapter generation
+- rewards and learner progression
+
+A learner's previous choices and learning signals become part of the context for the next chapter.
+
+## AI usage
+
+Gemini is used for:
+
+- analyzing the learner's reading transcript against the target passage
+- identifying useful words to revisit
+- generating encouraging, age-appropriate feedback
+- generating the next story chapter from the adventure history and learner context
+- generating the next comprehension and vocabulary experience as part of the story flow
+
+The app also has a local comparison fallback for reading analysis when AI analysis is temporarily unavailable.
+
+## Demo flow
+
+The recommended demo sequence is:
+
+1. Choose a story world.
+2. Read a passage aloud.
+3. Show the animated story world and reading progress.
+4. Complete the Story Detective challenge.
+5. Make a story choice.
+6. Continue to the next adaptive chapter.
+7. Show vocabulary reinforcement and rewards.
+8. Open My Progress.
+9. Leave the adventure and return to demonstrate saved progress.
+
+## Live demo
+
+https://story-quest-ai.vercel.app
+
+## Source code
+
+https://github.com/LakshmiHarisri/StoryQuest-AI
